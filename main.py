@@ -1,30 +1,32 @@
+#Gerekli kütüphaneleri ekleme.
 import pythonSpeach
 import os
 from bs4 import BeautifulSoup
 import requests
 
+# Ana döngü
 while True:
     
-    said = pythonSpeach.mic("")
-    print(said)
-    if(said != None):
-        if("merhaba" in said):
+    said = pythonSpeach.mic("") #Ses tanıma işlemi. Tanınan ses bir değişkene verilir.
+    print(said) #Tanınan ses konsola yazılır
+    if(said != None): #Eğer ses algılandıysa
+        if("merhaba" in said): #algılanan ses merhaba ise
             pythonSpeach.speak("Merhaba")
 
-        elif(said == "not yaz"):
+        elif(said == "not yaz"): #algılanan ses not yaz ise boş bir dosya açılır ve istenilen şey dosyaya yazılır.
             said = pythonSpeach.mic("ne yazmamı istersiniz")
             with open("unnamed.txt", "w+") as f: 
                 f.write(said)
                 pythonSpeach.speak("kaydettim")   
 
-        elif(said == "klasör oluştur"):
+        elif(said == "klasör oluştur"): #algılanan ses klasör oluştur ise belirtilen isimde klasör oluşturulur
             said = pythonSpeach.mic("klasör oluşturuluyor") 
             saidSplit = said.split(" ")
             name = saidSplit[2]          
             os.system("mkdir "+"")
             pythonSpeach.speak("klasör oluşturuldu")
 
-        elif(said == "oku"):
+        elif(said == "oku"):#Daha önce not yazıldıysa onu okur
             try:
                 with open("unnamed.txt","r") as f:
                     pythonSpeach.speak(f.read())
@@ -34,11 +36,11 @@ while True:
             except Exception as e:
                 print("Error occured -> " + str(e))
 
-        elif(said == "kapat"):
+        elif(said == "kapat"): #programı kapatır
             pythonSpeach.speak("görüşmek üzere")
             break
         
-        elif("ara " in said):  
+        elif("ara " in said):  #aranmak istenen şey aranır
             searchText = "start chrome www.google.com/search?q="
             if(" " in said):
                 said = said.split(" ")
@@ -56,10 +58,10 @@ while True:
             else:
                 pythonSpeach.speak("hata")
 
-        elif(said == "faresiz kullan"): 
+        elif(said == "faresiz kullan"): #bilgisayarı el ile yönetmek için gereken programı çalıştırır.
             os.system("hand.py")
             
-        elif("hava durumu" in said):
+        elif("hava durumu" in said):# belirtilen şehirin hava durumu bilgisini söyler.
             saidSplit = said.split(" ")
             url = "https://www.havadurumu15gunluk.xyz/havadurumu7/90/ankara-hava-durumu-7-gunluk.html"
             try:
@@ -83,7 +85,7 @@ while True:
             veri = veri[0].text
             pythonSpeach.speak(veri)
         
-        if("aç" in said or "çalıştır" in said or "başlat" in said):
+        if("aç" in said or "çalıştır" in said or "başlat" in said):#daha önce eklenen uygulamaları çalıştırır.
             saidSplit = said.split(" ")
             try:
                 uygulama = saidSplit[1]

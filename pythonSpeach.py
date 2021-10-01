@@ -1,16 +1,17 @@
+#gerekli kütüphaneler eklenir
 import speech_recognition as sr
 import os
 from gtts import gTTS
 from playsound import playsound
 
-def speak(val):
+def speak(val): #içindeki değerde verilen metini okutur.
     tts = gTTS(text=val,lang="tr",slow=False)
     file = "asnwer.mp3"
     tts.save(file)
     playsound(file)
     os.remove(file)
 
-def mic(val):
+def mic(val):#ses algılar ve içindeki değeri okur.
     rec = sr.Recognizer()
     with sr.Microphone() as mic:
         rec.adjust_for_ambient_noise(mic)
